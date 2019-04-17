@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'].'/TPI/www/functions.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/TPI/www/model/users.php';
 ?>
 <html>
 <!-- Cet exemple démontre ce qu'il faut faire en terme d'utilisation

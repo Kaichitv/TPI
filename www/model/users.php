@@ -1,6 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'].'/TPI/www/db/database.php';
-require_once $_SERVER['DOCUMENT_ROOT'].'/TPI/www/EUser.php';
+require_once $_SERVER['DOCUMENT_ROOT'].'/TPI/www/class/EUser.php';
 
 /**
  * @brief Retourne le tableau des utilisateurs de type EUser
@@ -71,6 +71,22 @@ function AddUser($user)
 function UpdateUser($user)
 {
 	$sql = "UPDATE `USERS` SET `NICKNAME`=:nickname, `NAME`=:name  WHERE `EMAIL`=:email";
+	$request = EDatabase::prepare($sql);
+	try{
+		$request->bindParam(":email", $user->email, PDO::PARAM_STR);
+		$request->execute();
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+	}
+
+	return true;
+}
+
+function DeleteUser($user)
+{
+	$sql = "DELETE FROM `USERS` WHERE `EMAIL`=:email";
 	$request = EDatabase::prepare($sql);
 	try{
 		$request->bindParam(":email", $user->email, PDO::PARAM_STR);
