@@ -10,7 +10,7 @@ define('EDB_DBTYPE', "mysql");
 define('EDB_DBNAME', "cfpt");
 define('EDB_HOST', "127.0.0.1");
 define('EDB_PORT', "3306");
-define('EDB_USER', "root");
+define('EDB_USER', "Admin");
 define('EDB_PASS', "Super");
 
 

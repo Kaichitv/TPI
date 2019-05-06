@@ -5,9 +5,9 @@
  * 
  *          Exemple d'utilisation 1
  *          $u = new EUser();
- *          $u->Email = "dominique@aigroz.com";
- *          $u->Nickname = "Iraque";
- *          $u->Name = "Dominique AIGROZ";
+ *          $u->Email = "ludovic.jctdt@eduge.ch";
+ *          $u->Nickname = "Ludovic";
+ *          $u->Name = "Jacot-dit-Montandon";
  * 
  *          Exemple d'utilisation 2
  *          $u = new EUser("dominique@aigroz.com", "Iraque", "Dominique AIGROZ");
@@ -23,7 +23,7 @@ class EUser {
     {
 		$this->Email = $InEmail;
 		$this->Nickname = $InNickname;
-        $this->Name = $InName;
+    $this->Name = $InName;
 	}
 	/**
 	 * @var string L'email de l'utilisateur

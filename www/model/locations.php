@@ -32,7 +32,37 @@ function GetAllLocations()
 	return $arr;
 }
 
-function GetLocationsById()
+function GetLocationsById($location)
 {
-    
+    $arr = array();
+
+	$sql = "SELECT `DateStart`, `DateStop` FROM `Locations` WHERE `idLocation`=:idLocation";
+	$request = EDatabase::prepare($sql);
+	try{
+    $request->bindParam(":idLocation", $location->idLocation, PDO::PARAM_STR);
+    $request->execute();
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+	}
+
+	return $arr;
+}
+
+function AddLocation($location)
+{
+	$sql = "INSERT INTO `LOCATIONS` (`DateStart`, `DateStop`)  VALUE (:email, :nickname)";
+	$request = EDatabase::prepare($sql);
+	try{
+		$request->bindParam(":email", $location->DateStart, PDO::PARAM_STR);
+		$request->bindParam(":nickname", $location->DateStop, PDO::PARAM_STR);
+		$request->execute();
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+	}
+
+	return true;
 }
