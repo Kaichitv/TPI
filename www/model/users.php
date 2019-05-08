@@ -50,7 +50,7 @@ function GetUserByEmail($user)
 	return $arr;
 }
 
-function AddUser($user)
+function addUser($user)
 {
 	$sql = "INSERT INTO `USERS` (`EMAIL`, `NICKNAME`, `NAME`)  VALUE (:email, :nickname, :name)";
 	$request = EDatabase::prepare($sql);
@@ -68,28 +68,33 @@ function AddUser($user)
 	return true;
 }
 
-function UpdateUser($user)
+function updateUser($idUser, $lastname, $firstname, $pseudo, $email, $birthday, $password)
 {
-	$sql = "UPDATE `USERS` SET `NICKNAME`=:nickname, `NAME`=:name  WHERE `EMAIL`=:email";
+	$sql = "UPDATE `USERS` SET `Nom`=:lastname, `Prenom`=:prenom, `Pseudo`=:pseudo, `Email`=:email, `DateNaissance`=:birthday, `MotDePasse`=:password WHERE `idUtilisateur`=:idUser";
 	$request = EDatabase::prepare($sql);
 	try{
-		$request->bindParam(":email", $user->email, PDO::PARAM_STR);
+		$request->bindParam(":idUser", $idUser, PDO::PARAM_INT);
+		$request->bindParam(":lastname", $lastname, PDO::PARAM_STR);
+		$request->bindParam(":firstname", $firstname, PDO::PARAM_STR);
+		$request->bindParam(":pseudo", $pseudo, PDO::PARAM_STR);
+		$request->bindParam(":email", $email, PDO::PARAM_STR);
+		$request->bindParam(":birthday", $birthday, PDO::PARAM_STR);
+		$request->bindParam(":password", $password, PDO::PARAM_STR);
 		$request->execute();
 	}
 	catch (PDOException $e) {
         echo 'Problème de lecture de la base de données: '.$e->getMessage();
 		return false;
 	}
-
 	return true;
 }
 
-function DeleteUser($user)
+function DeleteUser($idUser)
 {
-	$sql = "DELETE FROM `USERS` WHERE `EMAIL`=:email";
+	$sql = "DELETE FROM `USERS` WHERE `idUser`=:idUser";
 	$request = EDatabase::prepare($sql);
 	try{
-		$request->bindParam(":email", $user->email, PDO::PARAM_STR);
+		$request->bindParam(":idUser", $idUser, PDO::PARAM_STR);
 		$request->execute();
 	}
 	catch (PDOException $e) {
