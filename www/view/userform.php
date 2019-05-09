@@ -1,6 +1,6 @@
 <?php
 /*
-  Projet: RAPOEME
+  Projet: LOCAMOTO
   Description: Page d'accueil 
   Auteur: Jacot-dit-Montandon Ludovic
   Version: 1.0
@@ -29,9 +29,7 @@
         <header class="blog-header py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 ">
-                    <nav class="nav d-flex justify-content-between">
-                        <a class="p-2 text-muted" href="index.php">Accueil</a>
-                    </nav>
+                <?php include "navigation.php";?>
                 </div>
                 <div class="col-4 text-center">
                     <h1 class="btn-dark">LOCAMOTO</h1>
@@ -52,7 +50,7 @@
             </div>
         </div>
 
-        <form action="saveuser.php" method="post" class="form-horizontal">
+        <form action="saveuser.php" method="POST" class="form-horizontal">
             <div class="form-group">
                 <label class="control-label col-sm-3" for="lastname">Nom: *</label>
                 <div class="col-sm-12">
@@ -68,14 +66,14 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-3" for="pseudo">pseudo: *</label>
+                <label class="control-label col-sm-3" for="pseudo">Pseudo: *</label>
                 <div class="col-sm-12">
                     <input class="form-control" type="text" name="pseudo" id="pseudo" value="<?php if(isset($pseudo)){ echo $pseudo;} ?>" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-3" for="email">email: *</label>
+                <label class="control-label col-sm-3" for="email">Email: *</label>
                 <div class="col-sm-12">
                     <input class="form-control" type="text" name="email" id="email" value="<?php if(isset($email)){echo $email;} ?>" />
                 </div>
@@ -88,26 +86,32 @@
                 </div>
             </div>
 
+            <?php if(!isset($_GET["idUser"]))
+            { ?>
             <div class="form-group">
                 <label class="control-label col-sm-3" for="pwd">Mot de passe: *</label>
                 <div class="col-sm-12">
                     <input class="form-control" type="password" name="pwd" id="pwd" />
                 </div>
             </div>
-
+            
             <div class="form-group">
                 <label class="control-label col-sm-3" for="pwd2">Confirmation<br>Mot de passe: *</label>
                 <div class="col-sm-12">
                     <input class="form-control" type="password" name="pwd2" id="pwd2" />
                 </div>
             </div>
+            <?php
+            }
+            ?>
 
             <div class="form-group">
                 <div class="col-sm-3">
-                    <input type="hidden" name="idUser" value="<?php if(isset($idUser)){echo $idUser;} ?>">
+                (* champs obligatoires)<br>
+                    <input type="hidden" name="idUser" value="<?php if(isset($idUser)){echo $idUser;}else{echo "";} ?>">
                 </div>
-                <div class="col-sm-12">
-                    <input type="submit" name="submit" value="Enregistrer" />
+                <div class="col-sm-12 row justify-content-end">
+                    <input class="btn btn-success" type="submit" name="submit" value="Enregistrer" />
                 </div>
             </div>
         </form>

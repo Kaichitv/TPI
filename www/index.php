@@ -11,6 +11,14 @@
 
 require_once 'model/motos.php';
 
-$motos = getMotos();
+if (filter_has_var(INPUT_POST,'search')) {
+    if(isset($_POST["search"]))
+    {
+        $search = trim(filter_input(INPUT_POST, 'search', FILTER_SANITIZE_STRING)); // . "%";
+        $motos = getMotosSearch($search);
+    }
+}else{
+    $motos = getMotosImages();
+}
 
 include 'view/showmotos.php';

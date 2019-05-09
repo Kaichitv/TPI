@@ -1,11 +1,15 @@
 <?php
 /*
- * @brief Connection constants
- */
+  Projet: LOCAMOTO
+  Description: Constante de connexion
+  Auteur: Jacot-dit-Montandon Ludovic
+  Version: 1.0
+  Date: 2018-19
+*/
+
 define('DB_DBTYPE', "mysql");
 define('DB_DBNAME', "locamoto");
-define('DB_HOST', "127.0.0.1");
-define('DB_PORT', "3306");
+define('DB_HOST', "localhost");
 define('DB_USER', "Admin");
 define('DB_PASS', "Super");
 
