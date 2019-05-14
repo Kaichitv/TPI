@@ -57,7 +57,7 @@
             <div class="form-group">
                 <label class="control-label col-sm-3" for="plaque">n° Plaque: *</label>
                 <div class="col-sm-12">
-                    <input class="form-control" type="text" name="plaque" id="plaque" required value="<?php if(isset($noPlaque)){echo $noPlaque;} ?>" />
+                    <input class="form-control" type="number" name="plaque" id="plaque" required value="<?php if(isset($noPlaque)){echo $noPlaque;} ?>" />
                 </div>
             </div>
 
@@ -91,17 +91,9 @@
 
             <div class="form-group">
                 <label class="control-label col-sm-3" for="image">Selectionnez une image: </label>
-                <div class="col-sm-12">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroupFileAddon01">Image</span>
+                    <div class="col-sm-12">
+                        <input class="form-control" type="file" name="image" id="image" required/>
                     </div>
-                    <div class="custom-file">
-                        <input class="custom-file-input" type="file" name="image" id="image" required/>
-                        <label class="custom-file-label" for="inputGroupFile01">Choisissez un fichier</label>
-                    </div>
-                </div>
-                </div>
             </div>
 
             <div class="form-group">

@@ -46,6 +46,28 @@
             </div>
             <hr>
         </header>
+
+        <!-- Notification -->
+        <?php
+            if(isset($_GET["message1"]))
+            {
+                echo '<div class="alert alert-success" role="alert">La moto a été mise à jour.</div>';
+            }
+            if(isset($_GET["message2"]))
+            {
+                echo '<div class="alert alert-success" role="alert">La moto a été ajoutée.</div>';
+            }
+            if(isset($_GET["message3"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Problème lors du téléchargement de l\'image</div>';
+            }
+            if(isset($_GET["message4"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs.</div>';
+            }
+        ?>
+
+        <!-- Tableau -->
         <div class="row">
             <div class="col-sm-10">
                 <h4>Liste des motos dans le parking</h4>

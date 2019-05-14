@@ -2,7 +2,7 @@
 
 /*
   Projet: LOCAMOTO
-  Description: fonctions de gestions de la table motos
+  Description: fonctions de gestions de la table images
   Auteur: Jacot-dit-Montandon Ludovic
   Version: 1.0
   Date: 2018-19

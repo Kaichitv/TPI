@@ -109,6 +109,7 @@
         </div>
         <br>
 
+        <!-- Affichage des motos -->
         <div class="row">
             <?php foreach ($motos as $moto) { ?>
                 <div class="col-md-4" style="margin-bottom: 20px;">
@@ -119,11 +120,11 @@
                             <div class="row justify-content-around">
                                 <p class="text-primary"><?= $moto['Cylindree'] ?></p>
                                 <p class="text-primary"><?= $moto['Couleur'] ?></p>
-                                <p class="text-primary"><?= $moto['DateImmatriculation'] ?></p>
+                                <p class="text-primary"><?= date_format(date_create($moto['DateImmatriculation']), "d-m-Y"); ?></p>
                             </div>
-                            <div class="image"> <img class="img img-responsive full-width" src="img/<?php echo $moto['nomImage']; ?>"></div><br>
+                            <div class="image"> <img class="img img-responsive full-width" src="img/<?= $moto['nomImage']; ?>"></div><br>
                             <?php if (isset($_SESSION["login"])) { ?>
-                                <a class="text-white text-muted" href="showlocationmotos.php?noPlaque=<?php echo $moto['noPlaque']; ?>"><button class="btn btn-info btn-block">Location</button></a>
+                                <a class="text-white btn btn-info btn-block" href="location.php?noPlaque=<?= $moto['noPlaque']; ?>">Location</a>
                             <?php
                         } else { }
                         ?>
@@ -132,12 +133,8 @@
                 </div>
             <?php } ?>
         </div>
-
-
-
-
-
     </div>
+    
     <footer class="text-center">
         <hr>
         <p>2018-2019 CFPT-informatique LOCAMOTO</p>

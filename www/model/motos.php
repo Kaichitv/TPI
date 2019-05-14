@@ -69,7 +69,7 @@ function getMotosSearch($search)
 }
 
 /**
- * Récupère tous les enregistrements de la table motos ainsi que les images
+ * Récupère tous les enregistrements de la table motos
  * @return array tableau contenant les enregistrements 
  */
 function getMotoByPlaque($noPlaque)
@@ -95,6 +95,7 @@ function getMotoByPlaque($noPlaque)
  * @param string $cylindree cylindree de la moto
  * @param string $couleur couleur de la moto
  * @param string $dateImmatriculation date d'immatriculation de la moto
+ * @return true
  */
 function addMoto($noPlaque, $marque, $cylindree, $couleur, $dateImmatriculation, $idImages)
 {
@@ -124,6 +125,7 @@ function addMoto($noPlaque, $marque, $cylindree, $couleur, $dateImmatriculation,
  * @param string $cylindree cylindree de la moto
  * @param string $couleur couleur de la moto
  * @param string $dateImmatriculation date d'immatriculation de la moto
+ * @return true
  */
 function updateMoto($noPlaque, $marque, $cylindree, $couleur, $dateImmatriculation)
 {

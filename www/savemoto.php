@@ -1,7 +1,7 @@
 <?php
 /*
   Projet: LOCAMOTO
-  Description: Sauvegarde d'un utilisateur
+  Description: Sauvegarde d'une moto
   Auteur: Jacot-dit-Montandon Ludovic
   Version: 1.0
   Date: 2018-19
@@ -48,7 +48,7 @@ if (isset($_POST['idImage'])) {
 }
 if (isset($_FILES["image"])) {
     $dossier = 'img/';
-    $nameImage = uniqid();
+    $nameImage = $_FILES["image"]["name"];
     $linkImage = $dossier . $nameImage;
 }
 
@@ -60,13 +60,16 @@ if (filter_has_var(INPUT_POST, 'submit')) {
             if($update){
                 updateImage($idImage, $nameImage, $linkImage);
                 updateMoto($noPlaque, $marque, $cylinder, $color, $registrationDate);
+                header("Location: manageparking.php#message1");
             } else{
                 $idImage = addImage($nameImage, $linkImage);
                 addMoto($noPlaque, $marque, $cylinder, $color, $registrationDate, $idImage);
+                header("Location: manageparking.php#message2");
             }
-            header("Location: manageparking.php");
         }
+        header("Location: manageparking.php#message3");
     }
+    header("Location: manageparking.php#message4");
 }
 
 include 'view/motoform.php';
