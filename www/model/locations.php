@@ -30,6 +30,26 @@ function getLocations()
 }
 
 /**
+ * Récupère tous les enregistrements de la table locations ainsi que le pseudo et la marque 
+ * qui viennent de la table utilisateurs et motos
+ * @return array tableau contenant les enregistrements 
+ */
+function getLocationsUserMoto()
+{
+    $db = connectDb();
+    $sql = "SELECT `idLocation`, `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, l.`idUtilisateur`, l.`noPlaque`, `Pseudo`, `Marque` FROM `Locations` l, `Motos` m, `Utilisateurs` as u WHERE l.noPlaque=m.noPlaque AND l.idUtilisateur=u.idUtilisateur";
+	$request = $db->prepare($sql);
+	try {
+		$request->execute();
+		return $request->fetchAll();
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+	}
+}
+
+/**
  * Ajouter un enregistrement dans la table locations
  * @param string $DateReservation date à laquelle est effetuée la réservation
  * @param string $DateDebut date qui débute la réservation
@@ -41,7 +61,7 @@ function getLocations()
 function addLocation($DateReservation, $DateDebut, $DateFin, $PrixJour, $idUtilisateur, $noPlaque)
 {
     $db = connectDb();
-    $sql = "INSERT INTO `Locations` (`DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `idUtilisateur`, `noPlaque`) VALUE (:DateReservation, :DateDebut, :DateFin, :PrixJour, :Avis, :idUtilisateur, :noPlaque)";
+    $sql = "INSERT INTO `Locations` (`DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `idUtilisateur`, `noPlaque`) VALUE (:DateReservation, :DateDebut, :DateFin, :PrixJour, :idUtilisateur, :noPlaque)";
     $request = $db->prepare($sql);
     try{
         $request->bindParam(":DateReservation", $DateReservation, PDO::PARAM_STR);

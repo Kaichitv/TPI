@@ -50,10 +50,6 @@ if (isset($_POST["pwd2"])) {
     $password2 = filter_input(INPUT_POST, "pwd2", FILTER_SANITIZE_STRING);
 }
 
-if(isset($password)==isset($password2))
-{
-    echo '<div class="alert alert-danger" role="alert">Les mots de passe ne correspondent pas</div>';
-}
 
 if (filter_has_var(INPUT_POST,'submit')) {
 if (!empty($firstname) && !empty($lastname) && !empty($pseudo) && !empty($email) && !empty($birthday) &&  isset($password)==isset($password2)) {
@@ -61,13 +57,17 @@ if (!empty($firstname) && !empty($lastname) && !empty($pseudo) && !empty($email)
     {
         if(updateUser($idUser, $lastname, $firstname, $pseudo, $email, $birthday)){
             echo '<div class="alert alert-success" role="alert">Utilisateur mis à jour.</div>';
-            header("Refresh:1; url=index.php");
+            //header("Refresh:1; url=index.php");
         }
-    } else if($idUser = addUser($lastname, $firstname, $pseudo, $email, $birthday, $password)){
+    } else if($idUser = addUser($lastname, $firstname, $pseudo, $email, $birthday, sha1($password))){
             echo '<div class="alert alert-success" role="alert">Utilisateur ajouté.</div>';
-            header("Refresh:2; url=index.php");
+            //header("Refresh:2; url=index.php");
         }
     }
+    else if(isset($password)==isset($password2))
+{
+    echo '<div class="alert alert-danger" role="alert">Les mots de passe ne correspondent pas</div>';
 }
+} 
 
 include 'view/userform.php';

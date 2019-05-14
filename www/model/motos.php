@@ -55,10 +55,10 @@ function getMotosImages()
 function getMotosSearch($search)
 {
     $db = connectDb();
-    $sql = "SELECT `noPlaque`, `Marque`, `Cylindree`, `Couleur`, `DateImmatriculation`, `nomImage` FROM `Motos` as m, `Images` as i WHERE m.idImage=i.idImage AND `Marque` LIKE '$search%' OR `Cylindree` LIKE '$search%'";
+    $sql = "SELECT `noPlaque`, `Marque`, `Cylindree`, `Couleur`, `DateImmatriculation`, `nomImage` FROM `Motos` as m, `Images` as i WHERE m.idImage=i.idImage AND `Marque` LIKE :search OR `Cylindree` LIKE :search";
 	$request = $db->prepare($sql);
 	try {
-        $request->bindParam(":search", $search, PDO::PARAM_STR);
+        $request->bindValue(":search", $search . "%", PDO::PARAM_STR);
 		$request->execute();
 		return $request->fetchAll();
 	}

@@ -59,6 +59,14 @@
             <hr>
         </header>
 
+        <!-- Notification -->
+        <?php
+            if(isset($_GET["message1"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs.</div>';
+            }
+        ?>
+
         <div class="row">
             <div class="col-sm-10">
                 <h4>Louer une moto</h4><br>
@@ -111,7 +119,7 @@
                     <div class="form-group">
                     <label class="control-label col" for="price">Prix: </label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="number" name="price" id="price" required value="15" />
+                            <input class="form-control" type="number" name="price" id="price" required value="" />
                         </div>
                     </div>
 
@@ -140,20 +148,30 @@
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'], //(CSS/JS)
-        header: { //Menu avec les différent boutons
-            left: 'dayGridMonth,timeGridWeek,timeGridDay,list',
+        //Menu avec les différent boutons
+        header: { 
+            left: 'dayGridMonth,timeGridWeek',
             center: 'title',
             right: 'prevYear,prev,next,nextYear'
         },
         defaultView: 'dayGridMonth', //Type de calendrier a afficher au chargement 
         selectable: true, //Permet de selectionner un jour
         locale: 'fr-ch', //Langue
-        dateClick: function(info) { //Fonction à chaque click de date
+        textColor: 'white',
+        //Fonction à chaque clic de date
+        dateClick: function(info) {
             document.getElementById('datestart').value = info.dateStr;
         },
+        //Fonction quand on sélectionne plusieurs jours
         select: function(info) {
             document.getElementById('datestart').value = info.startStr;
             document.getElementById('dateend').value = info.endStr;
+            //Calcule du prix en direct 
+            date1 = new Date(info.startStr);
+            date2 = new Date(info.endStr);
+            tmp = date2 - date1; //Résultat en milliseconde 
+            tmp = Math.floor(tmp/10000000);
+            document.getElementById('price').value = tmp;
         },
         events: data
 

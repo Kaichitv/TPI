@@ -1,7 +1,7 @@
 <?php
 /*
   Projet: LOCAMOTO
-  Description: Sauvegarde d'une moto
+  Description: Sauvegarde d'une location
   Auteur: Jacot-dit-Montandon Ludovic
   Version: 1.0
   Date: 2018-19
@@ -26,4 +26,14 @@ if(isset($_POST['dateend'])){
 }
 if(isset($_POST['price'])){
     $price = filter_input(INPUT_POST, 'price', FILTER_SANITIZE_STRING);
+}
+
+$date = date("Y-m-d H:i:s");
+
+if(!empty($noPlaque) && !empty($idUser) && !empty($datestart) && !empty($dateend) && !empty($price))
+{
+    addLocation($date, $datestart, $dateend, $price, $idUser, $noPlaque);
+    header("Location: index.php?message4");
+} else{
+    header("Location: location.php#message1");
 }

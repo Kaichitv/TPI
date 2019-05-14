@@ -89,13 +89,14 @@ function addUser($lastname, $firstname, $pseudo, $email, $birthday, $password)
 	$db = connectDb();
 	$sql = "INSERT INTO `Utilisateurs` (`Nom`, `Prenom`, `Pseudo`, `MotDePasse`, `Email`, `DateNaissance`)  VALUE (:lastname, :firstname, :pseudo, :password, :email, :birthday)";
 	$request = $db->prepare($sql);
+	$password = sha1($password);
 	try{
 		$request->bindParam(":lastname", $lastname, PDO::PARAM_STR);
 		$request->bindParam(":firstname", $firstname, PDO::PARAM_STR);
 		$request->bindParam(":pseudo", $pseudo, PDO::PARAM_STR);
 		$request->bindParam(":email", $email, PDO::PARAM_STR);
 		$request->bindParam(":birthday", $birthday, PDO::PARAM_STR);
-		$request->bindParam(":password", sha1($password), PDO::PARAM_STR);
+		$request->bindParam(":password", $password, PDO::PARAM_STR);
 		$request->execute();
 		return $db->lastInsertId();
 	}

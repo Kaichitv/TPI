@@ -60,6 +60,10 @@
             {
                 echo '<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs.</div>';
             }
+            if(isset($_GET["message4"]))
+            {
+                echo '<div class="alert alert-success" role="alert">Réservation effectuée avec succès.</div>';
+            }
         ?>
 
         <!-- Modal Connexion -->
@@ -134,7 +138,7 @@
             <?php } ?>
         </div>
     </div>
-    
+
     <footer class="text-center">
         <hr>
         <p>2018-2019 CFPT-informatique LOCAMOTO</p>
