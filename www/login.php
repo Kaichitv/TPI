@@ -17,15 +17,17 @@ if (isset($_POST["password"])) {
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_STRING);
 }
 if (!empty($pseudo) && !empty($password)) {
-    userExist($pseudo, sha1($password));
-    $_SESSION["pseudo"] = $pseudo;
-    $idUser = getUserId($pseudo);
-    $statut = getUserStatut($pseudo);
-    $_SESSION["idUser"] = $idUser;
-    $_SESSION["statut"] = $statut;
-    $_SESSION["login"] = true;
-    header("Location: index.php");
-}
-else{
-    echo "L'utilisateur n'existe pas";
+    if (userExist($pseudo, sha1($password))) {
+        $_SESSION["pseudo"] = $pseudo;
+        $idUser = getUserId($pseudo);
+        $statut = getUserStatut($pseudo);
+        $_SESSION["idUser"] = $idUser;
+        $_SESSION["statut"] = $statut;
+        $_SESSION["login"] = true;
+        header("Location: index.php?message1");
+    } else{
+        header("Location: index.php?message2");
+    }
+} else {
+    header("Location: index.php?message3");
 }

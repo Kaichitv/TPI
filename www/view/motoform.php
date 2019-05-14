@@ -1,7 +1,7 @@
 <?php
 /*
   Projet: LOCAMOTO
-  Description: Formulaire d'utilisateur 
+  Description: Formulaire de moto
   Auteur: Jacot-dit-Montandon Ludovic
   Version: 1.0
   Date: 2018-19
@@ -48,69 +48,70 @@
         
         <div class="row">
             <div class="col-sm-10">
-                <h4>Editer un utilisateur</h4>
+                <h4>Editer une moto</h4>
             </div>
         </div>
 
-        <form action="saveuser.php" method="POST" class="form-horizontal rounded">
+        <form action="savemoto.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
+
             <div class="form-group">
-                <label class="control-label col-sm-3" for="lastname">Nom: *</label>
+                <label class="control-label col-sm-3" for="plaque">n° Plaque: *</label>
                 <div class="col-sm-12">
-                    <input class="form-control" type="text" name="lastname" id="lastname" required value="<?php if(isset($lastname)){echo $lastname;} ?>" />
+                    <input class="form-control" type="text" name="plaque" id="plaque" required value="<?php if(isset($noPlaque)){echo $noPlaque;} ?>" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-3" for="firstname">Prénom: *</label>
+                <label class="control-label col-sm-3" for="marque">Marque: *</label>
                 <div class="col-sm-12">
-                    <input class="form-control" type="text" name="firstname" id="firstname" required value="<?php if(isset($firstname)){echo $firstname;} ?>" />
+                    <input class="form-control" type="text" name="marque" id="marque" required value="<?php if(isset($marque)){echo $marque;} ?>" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-3" for="pseudo">Pseudo: *</label>
+                <label class="control-label col-sm-3" for="cylinder">Cylindree: *</label>
                 <div class="col-sm-12">
-                    <input class="form-control" type="text" name="pseudo" id="pseudo" required value="<?php if(isset($pseudo)){ echo $pseudo;} ?>" />
+                    <input class="form-control" type="text" name="cylinder" id="cylinder" required value="<?php if(isset($cylinder)){ echo $cylinder;} ?>" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-3" for="email">Email: *</label>
+                <label class="control-label col-sm-3" for="color">Couleur: *</label>
                 <div class="col-sm-12">
-                    <input class="form-control" type="text" name="email" id="email" required value="<?php if(isset($email)){echo $email;} ?>" />
+                    <input class="form-control" type="text" name="color" id="color" required value="<?php if(isset($color)){echo $color;} ?>" />
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="control-label col-sm-3" for="birthday">Date d'anniversaire: *</label>
+                <label class="control-label col-sm-3" for="registrationDate">Date d'immatriculation: *</label>
                 <div class="col-sm-12">
-                    <input class="form-control" type="date" name="birthday" id="birthday" required value="<?php if(isset($birthday)){echo $birthday;} ?>" />
+                    <input class="form-control" type="date" name="registrationDate" id="registrationDate" required value="<?php if(isset($registrationDate)){echo $registrationDate;} ?>" />
                 </div>
             </div>
 
-            <?php if(!isset($_GET["idUser"]))
-            { ?>
             <div class="form-group">
-                <label class="control-label col-sm-3" for="pwd">Mot de passe: *</label>
+                <label class="control-label col-sm-3" for="image">Selectionnez une image: </label>
                 <div class="col-sm-12">
-                    <input class="form-control" type="password" name="pwd" id="pwd" required />
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupFileAddon01">Image</span>
+                    </div>
+                    <div class="custom-file">
+                        <input class="custom-file-input" type="file" name="image" id="image" required/>
+                        <label class="custom-file-label" for="inputGroupFile01">Choisissez un fichier</label>
+                    </div>
+                </div>
                 </div>
             </div>
-            
-            <div class="form-group">
-                <label class="control-label col-sm-3" for="pwd2">Confirmation<br>Mot de passe: *</label>
-                <div class="col-sm-12">
-                    <input class="form-control" type="password" name="pwd2" id="pwd2" required/>
-                </div>
-            </div>
-            <?php
-            }
-            ?>
 
             <div class="form-group">
                 <div class="col-sm-3">
                 (* champs obligatoires)<br>
-                    <input type="hidden" name="idUser" value="<?php if(isset($idUser)){echo $idUser;}else{echo "";} ?>">
+                <?php if(isset($_GET["noPlaque"]))
+                {
+                    echo '<input type="hidden" name="update" value="true">';
+                    echo '<input type="hidden" name="idImage" value="'. $idImage .'">';
+                } ?>
                 </div>
                 <div class="col-sm-12 row justify-content-end">
                     <input class="btn btn-success" type="submit" name="submit" value="Enregistrer" />

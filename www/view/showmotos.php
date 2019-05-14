@@ -46,6 +46,22 @@
             <hr>
         </header>
 
+        <!-- Notification de connexion -->
+        <?php
+            if(isset($_GET["message1"]))
+            {
+                echo '<div class="alert alert-success" role="alert">Bienvenu ! Vous êtes connecté</div>';
+            }
+            if(isset($_GET["message2"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Les identifiants n\'existent pas.</div>';
+            }
+            if(isset($_GET["message3"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs.</div>';
+            }
+        ?>
+
         <!-- Modal Connexion -->
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Connexion" aria-hidden="true">
             <div class="modal-dialog" role="document">

@@ -69,6 +69,26 @@ function getMotosSearch($search)
 }
 
 /**
+ * Récupère tous les enregistrements de la table motos ainsi que les images
+ * @return array tableau contenant les enregistrements 
+ */
+function getMotoByPlaque($noPlaque)
+{
+    $db = connectDb();
+    $sql = "SELECT `Marque`, `Cylindree`, `Couleur`, `DateImmatriculation`, `idImage` FROM `Motos` WHERE `noPlaque`=:noPlaque";
+	$request = $db->prepare($sql);
+	try {
+        $request->bindParam(":noPlaque", $noPlaque, PDO::PARAM_STR);
+		$request->execute();
+		return $request->fetch();
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+	}
+}
+
+/**
  * Ajoute un enregistrement à la table motos
  * @param string $noPlaque noPlaque de la moto
  * @param string $marque marque de la moto
@@ -76,17 +96,18 @@ function getMotosSearch($search)
  * @param string $couleur couleur de la moto
  * @param string $dateImmatriculation date d'immatriculation de la moto
  */
-function addMoto($noPlaque, $marque, $cylindree, $couleur, $dateImmatriculation)
+function addMoto($noPlaque, $marque, $cylindree, $couleur, $dateImmatriculation, $idImages)
 {
     $db = connectDb();
-	$sql = "INSERT INTO `Motos` (`noPlaque`, `Marque`, `Cylindree`, `Couleur`, `DateImmatriculation`)  VALUE (:noPlaque, :marque, :cylindree, :couleur, :dateImmatriculation)";
+	$sql = "INSERT INTO `Motos` (`noPlaque`, `Marque`, `Cylindree`, `Couleur`, `DateImmatriculation`, `idImage`)  VALUE (:noPlaque, :marque, :cylindree, :couleur, :dateImmatriculation, :idImages)";
 	$request = $db->prepare($sql);
 	try{
 		$request->bindParam(":noPlaque", $noPlaque, PDO::PARAM_INT);
 		$request->bindParam(":marque", $marque, PDO::PARAM_STR);
 		$request->bindParam(":cylindree", $cylindree, PDO::PARAM_STR);
 		$request->bindParam(":couleur", $couleur, PDO::PARAM_STR);
-		$request->bindParam(":dateImmatriculation", $dateImmatriculation, PDO::PARAM_STR);
+        $request->bindParam(":dateImmatriculation", $dateImmatriculation, PDO::PARAM_STR);
+        $request->bindParam(":idImages", $idImages, PDO::PARAM_INT);
 		$request->execute();
 		return true;
 	}

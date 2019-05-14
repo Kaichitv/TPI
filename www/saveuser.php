@@ -1,7 +1,7 @@
 <?php
 /*
   Projet: LOCAMOTO
-  Description: Controleur des motos
+  Description: Sauvegarde d'un utilisateur
   Auteur: Jacot-dit-Montandon Ludovic
   Version: 1.0
   Date: 2018-19
@@ -10,8 +10,6 @@
 session_start();
 
 require_once('model/users.php');
-
-$firstname = NULL;
 
 if(isset($_GET["idUser"])){
     $idUser = $_GET["idUser"];
@@ -26,7 +24,7 @@ if(isset($_GET["idUser"])){
 
 }
 
-// récupération des données provenant des données saisies par l'utilisateur
+//Récupération des données provenant des données saisies par l'utilisateur
 if (isset($_POST['idUser'])) {
     $idUser = filter_input(INPUT_POST, 'idUser', FILTER_VALIDATE_INT);
 }
@@ -52,6 +50,11 @@ if (isset($_POST["pwd2"])) {
     $password2 = filter_input(INPUT_POST, "pwd2", FILTER_SANITIZE_STRING);
 }
 
+if(isset($password)==isset($password2))
+{
+    echo '<div class="alert alert-danger" role="alert">Les mots de passe ne correspondent pas</div>';
+}
+
 if (filter_has_var(INPUT_POST,'submit')) {
 if (!empty($firstname) && !empty($lastname) && !empty($pseudo) && !empty($email) && !empty($birthday) &&  isset($password)==isset($password2)) {
     if(is_numeric($idUser))
@@ -62,7 +65,7 @@ if (!empty($firstname) && !empty($lastname) && !empty($pseudo) && !empty($email)
         }
     } else if($idUser = addUser($lastname, $firstname, $pseudo, $email, $birthday, $password)){
             echo '<div class="alert alert-success" role="alert">Utilisateur ajouté.</div>';
-            header("Refresh:2; Location:index.php");
+            header("Refresh:2; url=index.php");
         }
     }
 }

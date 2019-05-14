@@ -16,7 +16,7 @@ require_once('dbconnections.php');
 function GetAllUsers()
 {
 	$db = connectDb();
-    $sql = "SELECT `Nom`, `Prenom`, `Pseudo`, `MotDePasse`, `Email`, `DateNaissance`, `Statut` FROM `Utilisateurs`";
+    $sql = "SELECT `idUtilisateur`, `Nom`, `Prenom`, `Pseudo`, `MotDePasse`, `Email`, `DateNaissance`, `Statut` FROM `Utilisateurs`";
 	$request = $db->prepare($sql);
 	try {
 		$request->execute();
