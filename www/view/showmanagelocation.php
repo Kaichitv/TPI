@@ -46,15 +46,23 @@
             </div>
             <hr>
         </header>
+
+        <?php
+            if(isset($_GET["message1"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Réservation supprimée</div>';
+            }
+        ?>
+
         <div class="row">
             <div class="col-sm-10">
-                <h4>Liste des utilisateurs</h4>
+                <h4>Liste des locations</h4>
             </div>
 
             <div class="col-sm-2">
-                <a class="m-2 text-muted pull-right" href="saveuser.php">Nouvel utilisateur</a>
+                <a class="btn btn-sm btn-outline-secondary pull-right mx-5" href="managecalendrier.php">Calendrier</a>
             </div>
-        </div>
+        </div><br>
 
         <table class="table table-bordered table-striped table-condensed">
             <thead class="thead-dark">
@@ -99,15 +107,16 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><?= $location['idLocation']; ?> :
-                                            <?= $location['Pseudo']; ?>,
+                                        <p><?= $location['idLocation']; ?>. Réservation faite par :
+                                            <?= $location['Pseudo']; ?>, pour la moto :
+                                            <?= $location['Marque']; ?>
                                             <?= $location['noPlaque']; ?>
                                         </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="deleteuser.php" method="post">
+                                        <form action="deletelocation.php" method="post">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-                                            <input type="hidden" name="idUtilisateur" value="<?=  $location['idLocation']; ?>" />
+                                            <input type="hidden" name="idLocation" value="<?=  $location['idLocation']; ?>" />
                                             <input class="btn btn-danger" type="submit" name="submit" value="Supprimer" />
                                         </form>
                                     </div>

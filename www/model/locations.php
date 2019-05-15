@@ -14,14 +14,50 @@ require_once 'dbconnections.php';
  * Récupère tous les enregistrements de la table locations
  * @return array tableau contenant les enregistrements 
  */
-function getLocations()
+function getLocationsJSON()
 {
+    $arrayAllLocation = array();
+
     $db = connectDb();
-    $sql = "SELECT `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, `idUtilisateur`, `noPlaque` FROM `Locations`";
+    $sql = "SELECT `idLocation`, `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, l.`idUtilisateur`, l.`noPlaque`, `Pseudo`, `Marque` FROM `Locations` l, `Motos` m, `Utilisateurs` as u WHERE l.noPlaque=m.noPlaque AND l.idUtilisateur=u.idUtilisateur";
 	$request = $db->prepare($sql);
 	try {
 		$request->execute();
-		return $request->fetchAll();
+        $result = $request->fetchAll();
+        foreach($result as $location)
+        {
+            $arrayLocation = array("title"=>"Reservé par: ". $location["Pseudo"] . " Moto : " . $location["Marque"] . " " . $location["noPlaque"], "start"=>$location["DateDebut"], "end"=>$location["DateFin"]);
+            array_push($arrayAllLocation, $arrayLocation);
+        }
+        return json_encode($arrayAllLocation);
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+	}
+}
+
+/**
+ * Récupère tous les enregistrements de la table locations par numéro de plaque
+ * @return array tableau contenant les enregistrements 
+ */
+function getLocationsJSONByPlaque($noPlaque)
+{
+    $arrayAllLocation = array();
+
+    $db = connectDb();
+    $sql = "SELECT `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, `idUtilisateur`, `noPlaque` FROM `Locations` WHERE `noPlaque`=:noPlaque";
+	$request = $db->prepare($sql);
+	try {
+        $request->bindParam(":noPlaque", $noPlaque, PDO::PARAM_INT);
+		$request->execute();
+        $result = $request->fetchAll();
+        foreach($result as $location)
+        {
+            $arrayLocation = array("title"=>"Reservée", "start"=>$location["DateDebut"], "end"=>$location["DateFin"]);
+            array_push($arrayAllLocation, $arrayLocation);
+        }
+        return json_encode($arrayAllLocation);
 	}
 	catch (PDOException $e) {
         echo 'Problème de lecture de la base de données: '.$e->getMessage();
@@ -40,6 +76,28 @@ function getLocationsUserMoto()
     $sql = "SELECT `idLocation`, `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, l.`idUtilisateur`, l.`noPlaque`, `Pseudo`, `Marque` FROM `Locations` l, `Motos` m, `Utilisateurs` as u WHERE l.noPlaque=m.noPlaque AND l.idUtilisateur=u.idUtilisateur";
 	$request = $db->prepare($sql);
 	try {
+		$request->execute();
+		return $request->fetchAll();
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+    }
+}
+
+    /**
+ * Récupère tous les enregistrements de la table locations ainsi que le pseudo et la marque 
+ * qui viennent de la table utilisateurs et motos
+ * @return array tableau contenant les enregistrements 
+ */
+function getLocationsByUserPlaque($noPlaque, $idUser)
+{
+    $db = connectDb();
+    $sql = "SELECT `idLocation`, `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, l.`idUtilisateur`, l.`noPlaque`, `Pseudo`, `Marque` FROM `Locations` l, `Motos` m, `Utilisateurs` as u WHERE l.noPlaque=m.noPlaque AND l.idUtilisateur=u.idUtilisateur AND l.noPlaque=:noPlaque AND l.idUtilisateur=:idUser";
+	$request = $db->prepare($sql);
+	try {
+        $request->bindParam(":idUser", $idUser, PDO::PARAM_INT);
+        $request->bindParam(":noPlaque", $noPlaque, PDO::PARAM_INT);
 		$request->execute();
 		return $request->fetchAll();
 	}
@@ -87,7 +145,7 @@ function addLocation($DateReservation, $DateDebut, $DateFin, $PrixJour, $idUtili
 function addAvis($idLocation, $Avis)
 {
     $db = connectDb();
-    $sql = "INSERT INTO `Locations` (`Avis`) VALUE (:Avis) WHERE idLocation=:idLocation";
+    $sql = "UPDATE `Locations` SET `Avis`=:Avis WHERE idLocation=:idLocation";
     $request = $db->prepare($sql);
     try{
         $request->bindParam(":idLocation", $idLocation, PDO::PARAM_INT);

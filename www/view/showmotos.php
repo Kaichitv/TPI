@@ -64,6 +64,14 @@
             {
                 echo '<div class="alert alert-success" role="alert">Réservation effectuée avec succès.</div>';
             }
+            if(isset($_GET["message5"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Vous n\'avez aucune réservation avec cette moto</div>';
+            }
+            if(isset($_GET["message6"]))
+            {
+                echo '<div class="alert alert-success" role="alert">Avis envoyé avec succès</div>';
+            }
         ?>
 
         <!-- Modal Connexion -->
@@ -129,6 +137,7 @@
                             <div class="image"> <img class="img img-responsive full-width" src="img/<?= $moto['nomImage']; ?>"></div><br>
                             <?php if (isset($_SESSION["login"])) { ?>
                                 <a class="text-white btn btn-info btn-block" href="location.php?noPlaque=<?= $moto['noPlaque']; ?>">Location</a>
+                                <a class="text-white btn btn-secondary btn-block" href="advice.php?noPlaque=<?= $moto['noPlaque']; ?>&idUser=<?= $_SESSION['idUser']; ?>">Laisser un avis</a>
                             <?php
                         } else { }
                         ?>

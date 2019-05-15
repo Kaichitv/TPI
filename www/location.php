@@ -9,6 +9,7 @@
 session_start();
 
 require_once("model/motos.php");
+require_once("model/locations.php");
 
 if(isset($_GET["noPlaque"]))
 {
@@ -16,5 +17,7 @@ if(isset($_GET["noPlaque"]))
 }
 
 $moto = getMotoByPlaque($noPlaque);
+
+$locations = getLocationsJSONByPlaque($noPlaque);
 
 include 'view/showlocation.php';

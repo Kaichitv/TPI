@@ -50,7 +50,6 @@
 
                 <div class="col-4 d-flex justify-content-end align-items-center">
                     <?php if (isset($_SESSION["login"])) { ?>
-                        <a class="m-2 text-muted" href=<?php echo "saveuser.php?idUser=" . $_SESSION["idUser"];?>>Profil</a>
                         <a href="logout.php"><button type="button" class="btn btn-sm btn-outline-secondary">Déconnexion</button></a>
                     <?php } else { ?>
                         <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#loginModal">Connexion</button>
@@ -70,7 +69,7 @@
 
         <div class="row">
             <div class="col-sm-10">
-                <h4>Louer une moto</h4><br>
+                <h4>Calendrier des réservations</h4><br>
             </div>
         </div>
 
@@ -79,42 +78,7 @@
             var data = <?php echo $locations ?>;
         </script>
         <div class="row">
-            <div id='calendar' class="col-sm-8"></div>
-            <div class="col-sm-4 justify-content-end" >
-                <h3> Votre sélection : </h3><hr>
-            <h1 class="text-secondary mx-2"><?= $moto['Marque'] ?></h1>
-            <h5 class="text-black-50 mx-4"><?= $moto['Cylindree'] ?></h5>
-            <h5 class="text-black-50 mx-4"><?= $moto['Couleur'] ?></h5>
-            <h5 class="text-black-50 mx-4"><?= date_format(date_create($moto['DateImmatriculation']), "d-m-Y"); ?></h5>
-                <form action="savelocation.php" method="POST" class="form-horizontal" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label class="control-label col-sm-5" for="datestart">Date de début: </label>
-                        <div class="col-sm-12">
-                            <input class="form-control" type="date" name="datestart" id="datestart" required value="" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-5" for="dateend">Date de fin: </label>
-                        <div class="col-sm-12">
-                            <input class="form-control" type="date" name="dateend" id="dateend" required value="" />
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                    <label class="control-label col" for="price">Prix: </label>
-                        <div class="col-sm-4">
-                            <input class="form-control" type="number" name="price" id="price" required value="" />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 row justify-content-end">
-                        <input type="hidden" type="text" name="idUser" value="<?= $_SESSION["idUser"]; ?>">
-                        <input type="hidden" type="number" name="plaque" value="<?= $_GET["noPlaque"]; ?>">
-                        <input class="btn btn-success" type="submit" name="submit" value="Louer" />
-                    </div>
-                </form>
-            </div>
+            <div id='calendar' class="col-sm-12"></div>
         </div>
     </div>
 
@@ -128,42 +92,24 @@
     </footer>
 </body>
 <script>
-    //Le script est a mettre en fin de page pour que le HTML soit chargé
+    //Le script est a mettre en fin de page comme ça le HTML est chargé
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         plugins: ['interaction', 'dayGrid', 'timeGrid', 'list'], //(CSS/JS)
         //Menu avec les différent boutons
         header: { 
-            left: 'dayGridMonth,dayGridWeek',
+            left: 'dayGridMonth,timeGridWeek',
             center: 'title',
             right: 'prevYear,prev,next,nextYear'
         },
         defaultView: 'dayGridMonth', //Type de calendrier a afficher au chargement 
         selectable: true, //Permet de selectionner un jour
         locale: 'fr-ch', //Langue
+        textColor: 'white',
         //Fonction à chaque clic de date
         dateClick: function(info) {
             document.getElementById('datestart').value = info.dateStr;
-        },
-        //Fonction quand on sélectionne plusieurs jours
-        select: function(info) {
-            document.getElementById('datestart').value = info.startStr;
-            document.getElementById('dateend').value = info.endStr;
-            //Calcule du prix en direct 
-            date1 = new Date(info.startStr);
-            date2 = new Date(info.endStr);
-            tmp = date2 - date1; //Résultat en milliseconde 
-            tmp = Math.floor(tmp/10000000);
-            document.getElementById('price').value = tmp;
-        },
-        selectAllow: function(selectInfo) {
-            var today = Date.now() -86400000;
-            if(selectInfo.start < today){
-                return false;
-            }else{
-                return true;
-            }
         },
         events: data
 
