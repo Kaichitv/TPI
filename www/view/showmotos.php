@@ -27,14 +27,14 @@
     <div class="container">
         <header class="blog-header py-3">
             <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-4 ">
+                <div class="col-md-4 col-xs-2">
                     <?php include "navigation.php";?>
                 </div>
-                <div class="col-4 text-center">
-                    <h1 class="btn-dark">LOCAMOTO</h1>
+                <div class="col-md-4 col-xs-2 text-center">
+                    <h1 class="btn-dark" >LOCAMOTO</h1>
                 </div>
 
-                <div class="col-4 d-flex justify-content-end align-items-center">
+                <div class="col-md-2 col-xs-2 d-flex justify-content-end align-items-center">
                     <?php if (isset($_SESSION["login"])) { ?>
                         <a class="m-2 text-muted" href=<?php echo "saveuser.php?idUser=" . $_SESSION["idUser"];?>>Profil</a>
                         <a href="logout.php"><button type="button" class="btn btn-sm btn-outline-secondary">Déconnexion</button></a>
@@ -46,7 +46,7 @@
             <hr>
         </header>
 
-        <!-- Notification de connexion -->
+        <!-- Notification -->
         <?php
             if(isset($_GET["message1"]))
             {
@@ -132,7 +132,7 @@
                             <div class="row justify-content-around">
                                 <p class="text-primary"><?= $moto['Cylindree'] ?></p>
                                 <p class="text-primary"><?= $moto['Couleur'] ?></p>
-                                <p class="text-primary"><?= date_format(date_create($moto['DateImmatriculation']), "d-m-Y"); ?></p>
+                                <p class="text-primary"><?= date_format(date_create($moto['DateImmatriculation']), "d.m.Y"); ?></p>
                             </div>
                             <div class="image"> <img class="img img-responsive full-width" src="img/<?= $moto['nomImage']; ?>"></div><br>
                             <?php if (isset($_SESSION["login"])) { ?>

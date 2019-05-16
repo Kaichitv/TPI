@@ -66,7 +66,7 @@
             <textarea class="form-control rounded-1" id="comment" name="comment" rows="6" form="formadvice"></textarea>
         </div>
         </div>
-        <p class="">Selectionez la réservation correspondante :</p>
+        <p>Selectionez la réservation correspondante :</p>
         <div class="row">
             <?php foreach ($locations as $location) { ?>
                 <div class="col-md-4" style="margin-bottom: 20px;">

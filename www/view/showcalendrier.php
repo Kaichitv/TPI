@@ -106,10 +106,13 @@
         defaultView: 'dayGridMonth', //Type de calendrier a afficher au chargement 
         selectable: true, //Permet de selectionner un jour
         locale: 'fr-ch', //Langue
-        textColor: 'white',
+        color: 'white',
         //Fonction à chaque clic de date
         dateClick: function(info) {
             document.getElementById('datestart').value = info.dateStr;
+        },
+        eventClick: function(info) {
+            alert(info.event.title);
         },
         events: data
 

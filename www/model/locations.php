@@ -73,7 +73,7 @@ function getLocationsJSONByPlaque($noPlaque)
 function getLocationsUserMoto()
 {
     $db = connectDb();
-    $sql = "SELECT `idLocation`, `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, l.`idUtilisateur`, l.`noPlaque`, `Pseudo`, `Marque` FROM `Locations` l, `Motos` m, `Utilisateurs` as u WHERE l.noPlaque=m.noPlaque AND l.idUtilisateur=u.idUtilisateur";
+    $sql = "SELECT `idLocation`, `DateReservation`, `DateDebut`, `DateFin`, `PrixJour`, `Avis`, l.`idUtilisateur`, l.`noPlaque`, `Pseudo`, `Email`, `Marque` FROM `Locations` l, `Motos` m, `Utilisateurs` as u WHERE l.noPlaque=m.noPlaque AND l.idUtilisateur=u.idUtilisateur";
 	$request = $db->prepare($sql);
 	try {
 		$request->execute();
@@ -85,7 +85,7 @@ function getLocationsUserMoto()
     }
 }
 
-    /**
+/**
  * Récupère tous les enregistrements de la table locations ainsi que le pseudo et la marque 
  * qui viennent de la table utilisateurs et motos
  * @return array tableau contenant les enregistrements 

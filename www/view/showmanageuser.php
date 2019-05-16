@@ -48,7 +48,7 @@
         </header>
         <div class="row">
             <div class="col-sm-10">
-                <h4>Liste des utilisateurs</h4>
+                <h4>Liste des utilisateurs</h4><br>
             </div>
 
             <div class="col-sm-2">
@@ -80,7 +80,7 @@
                     <td><?php echo $user['Prenom']; ?></td>
                     <td><?php echo $user['Pseudo']; ?></td>
                     <td><?php echo $user['Email']; ?></td>
-                    <td><?php echo date_format(date_create($user['DateNaissance']), "d-m-Y"); ?></td>
+                    <td><?php echo date_format(date_create($user['DateNaissance']), "d.m.Y"); ?></td>
                     <td>
                         <a class="btn btn-default btn-sm" href="saveuser.php?idUser=<?php echo $user['idUtilisateur'] ?>">✎</a>
                         <button data-toggle="modal" class="btn btn-default btn-sm" href="#delete<?php echo $user['idUtilisateur'] ?>">✖</button>

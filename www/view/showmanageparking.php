@@ -70,7 +70,7 @@
         <!-- Tableau -->
         <div class="row">
             <div class="col-sm-10">
-                <h4>Liste des motos dans le parking</h4>
+                <h4>Liste des motos dans le parking</h4><br>
             </div>
 
             <div class="col-sm-2">
@@ -100,7 +100,7 @@
                     <td><?php echo $moto['Marque']; ?></td>
                     <td><?php echo $moto['Cylindree']; ?></td>
                     <td><?php echo $moto['Couleur']; ?></td>
-                    <td><?php echo date_format(date_create($moto['DateImmatriculation']), "d-m-Y"); ?></td>
+                    <td><?php echo date_format(date_create($moto['DateImmatriculation']), "d.m.Y"); ?></td>
                     <td>
                         <a class="btn btn-default btn-sm" href="savemoto.php?noPlaque=<?php echo $moto['noPlaque'] ?>">✎</a>
                     </td>

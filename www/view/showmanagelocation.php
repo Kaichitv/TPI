@@ -52,6 +52,10 @@
             {
                 echo '<div class="alert alert-danger" role="alert">Réservation supprimée</div>';
             }
+            if(isset($_GET["message2"]))
+            {
+                echo '<div class="alert alert-success" role="alert">Réservation approuvée, Email envoyé.</div>';
+            }
         ?>
 
         <div class="row">
@@ -86,16 +90,53 @@
                 ?>
                 <tr>
                     <td><?= $location['idLocation']; ?></td>
-                    <td><?= date_format(date_create($location['DateReservation']), "d-m-Y"); ?></td>
-                    <td><?= date_format(date_create($location['DateDebut']), "d-m-Y"); ?></td>
-                    <td><?= date_format(date_create($location['DateFin']), "d-m-Y"); ?></td>
+                    <td><?= date_format(date_create($location['DateReservation']), "d.m.Y"); ?></td>
+                    <td><?= date_format(date_create($location['DateDebut']), "d.m.Y"); ?></td>
+                    <td><?= date_format(date_create($location['DateFin']), "d.m.Y"); ?></td>
                     <td><?= $location['PrixJour']; ?></td>
                     <td><?= $location['Avis']; ?></td>
                     <td><?= $location['Pseudo']; ?></td>
                     <td><?= $location['Marque']; ?></td>
                     <td><?= $location['noPlaque']; ?></td>
                     <td>
-                        <a class="btn btn-default btn-sm" href="">✔</a>
+                        <button data-toggle="modal" class="btn btn-default btn-sm" href="#validate<?= $location['idLocation'];?>">✔</button>
+                        <div class="modal fade" id="validate<?= $location['idLocation']; ?>" tabindex="-1" role="dialog" aria-labelledby="validate" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Voulez vous vraiement valider la location et envoyer un mail ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><b>Destinataire :</b>
+                                            <?= $location['Email']; ?><br>
+                                            <b>Contenu : </b> Votre réservation du :
+                                            <?= date_format(date_create($location['DateDebut']), "d.m.Y"); ?> jusqu'au :
+                                            <?= date_format(date_create($location['DateFin']), "d.m.Y"); ?> a été approuvée au prix de : 
+                                            <?= $location['PrixJour']; ?>.- CHF
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form action="sendmail.php" method="post">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                            <input type="hidden" name="email" value="<?=  $location['Email']; ?>" />
+                                            <input type="hidden" name="dateStart" value="<?=  $location['DateDebut']; ?>" />
+                                            <input type="hidden" name="dateEnd" value="<?=  $location['DateFin']; ?>" />
+                                            <input type="hidden" name="price" value="<?=  $location['PrixJour']; ?>" />
+                                            <input class="btn btn-success" type="submit" name="submit" value="Valider" />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--modal validate -->
+                        <script>
+                            $(document).ready(function() {
+                                $("#validate<?= $location['idLocation']; ?>").modal();
+                            });
+                        </script>
                         <button data-toggle="modal" class="btn btn-default btn-sm" href="#delete<?= $location['idLocation'];?>">✖</button>
                         <div class="modal fade" id="delete<?= $location['idLocation']; ?>" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
                             <div class="modal-dialog">
@@ -107,8 +148,8 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <p><?= $location['idLocation']; ?>. Réservation faite par :
-                                            <?= $location['Pseudo']; ?>, pour la moto :
+                                        <p>Réservation faite par :
+                                            <?= $location['Pseudo']; ?><br>Pour la moto :
                                             <?= $location['Marque']; ?>
                                             <?= $location['noPlaque']; ?>
                                         </p>
@@ -123,7 +164,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--modal-->
+                        <!--modal delete -->
                         <script>
                             $(document).ready(function() {
                                 $("#delete<?= $location['idLocation']; ?>").modal();
