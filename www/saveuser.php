@@ -52,12 +52,11 @@ if (isset($_POST["pwd2"])) {
 
 
 if (filter_has_var(INPUT_POST,'submit')) {
-if (!empty($firstname) && !empty($lastname) && !empty($pseudo) && !empty($email) && !empty($birthday) &&  isset($password)==isset($password2)) {
+if (!empty($firstname) && !empty($lastname) && !empty($pseudo) && !empty($email) && !empty($birthday) && $password==$password2) {
     if(is_numeric($idUser))
     {
         if(updateUser($idUser, $lastname, $firstname, $pseudo, $email, $birthday)){
-            echo '<div class="alert alert-success" role="alert">Utilisateur mis à jour.</div>';
-            //header("Refresh:1; url=index.php");
+            header("Location: manageuser.php?message1");
         }
     } else if($idUser = addUser($lastname, $firstname, $pseudo, $email, $birthday, sha1($password))){
             echo '<div class="alert alert-success" role="alert">Utilisateur ajouté.</div>';

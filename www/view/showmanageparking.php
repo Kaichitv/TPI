@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <table class="table table-bordered table-striped table-condensed">
+        <table class="table table-striped table-condensed">
             <thead class="thead-dark">
                 <tr>
                     <th>n° Plaque</th>

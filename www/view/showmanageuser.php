@@ -46,6 +46,19 @@
             </div>
             <hr>
         </header>
+        
+        <!-- Notification -->
+        <?php
+            if(isset($_GET["message1"]))
+            {
+                echo '<div class="alert alert-success" role="alert">Utilisateur mis à jour.</div>';
+            }
+            if(isset($_GET["message2"]))
+            {
+                echo '<div class="alert alert-success" role="alert">Utilisateur supprimé</div>';
+            }
+        ?>
+
         <div class="row">
             <div class="col-sm-10">
                 <h4>Liste des utilisateurs</h4><br>
@@ -56,7 +69,7 @@
             </div>
         </div>
 
-        <table class="table table-bordered table-striped table-condensed">
+        <table class="table table-striped table-condensed">
             <thead class="thead-dark">
                 <tr>
                     <th>Id</th>

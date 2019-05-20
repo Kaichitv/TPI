@@ -18,8 +18,7 @@ if (filter_has_var(INPUT_POST,'submit')) {
     if(is_numeric($idUser))
     {
         if(deleteUser($idUser)){
-            echo '<div class="alert alert-success" role="alert">Utilisateur supprimé</div>';
-            header("Location: manageuser.php");
+            header("Location: manageuser.php?message2");
         }
     } 
 }

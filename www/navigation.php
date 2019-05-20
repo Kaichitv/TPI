@@ -18,7 +18,7 @@
     <li><a class="p-2 text-muted" href="manageuser.php">Utilisateurs</a></li>
     <li><a class="p-2 text-muted" href="manageparking.php">Parking</a></li>
     <li><a class="p-2 text-muted" href="managelocation.php">Location</a></li>
+    <?php } ?>
     </ul>
 </div>
 </nav>
-<?php } ?>

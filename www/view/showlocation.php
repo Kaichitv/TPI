@@ -104,7 +104,7 @@
                     <div class="form-group">
                     <label class="control-label col" for="price">Prix: </label>
                         <div class="col-sm-4">
-                            <input class="form-control" type="number" name="price" id="price" required value="" />
+                            <input  class="form-control" type="number" name="price" id="price" required value="" readonly/>
                         </div>
                     </div>
 
@@ -144,7 +144,12 @@
         locale: 'fr-ch', //Langue
         //Fonction à chaque clic de date
         dateClick: function(info) {
-            document.getElementById('datestart').value = info.dateStr;
+            if(info.start < today){
+                return false;
+            }else{
+                document.getElementById('datestart').value = info.dateStr;
+            }
+            
         },
         //Fonction quand on sélectionne plusieurs jours
         select: function(info) {

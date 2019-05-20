@@ -35,5 +35,5 @@ if(!empty($noPlaque) && !empty($idUser) && !empty($datestart) && !empty($dateend
     addLocation($date, $datestart, $dateend, $price, $idUser, $noPlaque);
     header("Location: index.php?message4");
 } else{
-    header("Location: location.php#message1");
+    header("Location: location.php?message1");
 }

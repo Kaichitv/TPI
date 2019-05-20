@@ -13,4 +13,9 @@ require_once('model/users.php');
 
 $users = GetAllUsers();
 
+if($_SESSION["statut"]!= 2)
+{
+    header("Location: index.php");
+}
+
 include('view/showmanageuser.php');

@@ -200,7 +200,7 @@ function updateLocation($idLocation, $DateReservation, $DateDebut, $DateFin, $Pr
 function deleteLocation($idLocation)
 {
     $db = connectDb();
-	$sql = "DELETE FROM `Locations` WHERE `idLocations`=:idLocations";
+	$sql = "DELETE FROM `Locations` WHERE `idLocation`=:idLocation";
 	$request = $db->prepare($sql);
 	try{
 		$request->bindParam(":idLocation", $idLocation, PDO::PARAM_INT);
