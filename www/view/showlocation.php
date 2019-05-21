@@ -66,6 +66,10 @@
             {
                 echo '<div class="alert alert-danger" role="alert">Veuillez remplir tous les champs.</div>';
             }
+            if(isset($_GET["message2"]))
+            {
+                echo '<div class="alert alert-danger" role="alert">Vous avez déjà une réservation en cours.</div>';
+            }
         ?>
 
         <div class="row">

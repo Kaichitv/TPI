@@ -195,7 +195,7 @@ function updateLocation($idLocation, $DateReservation, $DateDebut, $DateFin, $Pr
 
 /**
  * Supprime un enregistrement de la table locations
- * @param int $idLocation identifiant 
+ * @param int $idLocation identifiant de la location
  */
 function deleteLocation($idLocation)
 {
@@ -212,4 +212,37 @@ function deleteLocation($idLocation)
 	}
 
 	return true;
+}
+
+/**
+ * Vérifie si une location n'est pas déjà en cours pour cet utilisateur
+ * @param int $idUser identifiant de l'utilisateur 
+ */
+function alreadyLocationExist($idUser)
+{
+    //Variable contenant de la date du jour
+    $today = date("Y-m-d H:i:s");
+
+    $db = connectDb();
+    $sql = "SELECT `DateFin`, `idUtilisateur` FROM `Locations` WHERE `idUtilisateur`=:idUtilisateur";
+    $request = $db->prepare($sql);
+    try{
+		$request->bindParam(":idUtilisateur", $idUser, PDO::PARAM_INT);
+        $request->execute();
+        $date = $request->fetch()["DateFin"];
+        if(date_create($date) > $today && $date != NULL)
+        {
+            return true;
+        }else{
+            return false;
+        }
+        
+	}
+	catch (PDOException $e) {
+        echo 'Problème de lecture de la base de données: '.$e->getMessage();
+		return false;
+	}
+    
+
+
 }

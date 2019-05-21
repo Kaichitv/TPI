@@ -32,8 +32,13 @@ $date = date("Y-m-d H:i:s");
 
 if(!empty($noPlaque) && !empty($idUser) && !empty($datestart) && !empty($dateend) && !empty($price))
 {
-    addLocation($date, $datestart, $dateend, $price, $idUser, $noPlaque);
-    header("Location: index.php?message4");
+    if(alreadyLocationExist($idUser))
+    {
+        header("Location: location.php?noPlaque=".$noPlaque."&message2");
+    }else{
+        addLocation($date, $datestart, $dateend, $price, $idUser, $noPlaque);
+        header("Location: index.php?message4");
+    }
 } else{
     header("Location: location.php?message1");
 }

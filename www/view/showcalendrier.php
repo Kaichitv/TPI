@@ -114,7 +114,8 @@
         eventClick: function(info) {
             alert(info.event.title);
         },
-        events: data
+        events: data,
+        eventTextColor : '#ffffff',
 
     });
     calendar.render();
