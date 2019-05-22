@@ -16,6 +16,10 @@ if(isset($_POST["email"]))
 {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 }
+if(isset($_POST["marque"]))
+{
+    $marque = filter_input(INPUT_POST, 'marque', FILTER_SANITIZE_STRING);
+}
 if(isset($_POST["dateStart"]))
 {
     $dateStart = filter_input(INPUT_POST, 'dateStart', FILTER_SANITIZE_STRING);
@@ -53,7 +57,7 @@ try {
     '<html>' .
     ' <head></head>' .
     ' <body>'.
-    '  <p>Bonjour, <br><br> Votre réservation du : '. date_format(date_create($dateStart), "d.m.Y") .' jusqu\'au : '. date_format(date_create($dateEnd), "d.m.Y") .' a été approuvée au prix de : '. $price .'.- CHF <br><br>Merci d\'en prendre note.</p>' .
+    '  <p>Bonjour, <br><br> Votre réservation du véhicule : '. $marque .' du : '. date_format(date_create($dateStart), "d.m.Y") .' jusqu\'au : '. date_format(date_create($dateEnd), "d.m.Y") .' a été approuvée au prix de : '. $price .'.- CHF <br><br>Merci d\'en prendre note.</p>' .
     ' </body>' .
     '</html>';
     // On assigne le message et on dit de quel type. Dans notre exemple c'est du html

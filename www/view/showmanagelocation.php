@@ -93,7 +93,7 @@
                     <td><?= date_format(date_create($location['DateReservation']), "d.m.Y"); ?></td>
                     <td><?= date_format(date_create($location['DateDebut']), "d.m.Y"); ?></td>
                     <td><?= date_format(date_create($location['DateFin']), "d.m.Y"); ?></td>
-                    <td><?= $location['PrixJour']; ?></td>
+                    <td><?= $location['PrixJour']; ?>.-</td>
                     <td><?= $location['Avis']; ?></td>
                     <td><?= $location['Pseudo']; ?></td>
                     <td><?= $location['Marque']; ?></td>
@@ -112,7 +112,8 @@
                                     <div class="modal-body">
                                         <p><b>Destinataire :</b>
                                             <?= $location['Email']; ?><br>
-                                            <b>Contenu : </b> Votre réservation du :
+                                            <b>Contenu : </b> Votre réservation du véhicule :
+                                            <?= $location['Marque']; ?> du :
                                             <?= date_format(date_create($location['DateDebut']), "d.m.Y"); ?> jusqu'au :
                                             <?= date_format(date_create($location['DateFin']), "d.m.Y"); ?> a été approuvée au prix de : 
                                             <?= $location['PrixJour']; ?>.- CHF
@@ -125,6 +126,7 @@
                                             <input type="hidden" name="dateStart" value="<?=  $location['DateDebut']; ?>" />
                                             <input type="hidden" name="dateEnd" value="<?=  $location['DateFin']; ?>" />
                                             <input type="hidden" name="price" value="<?=  $location['PrixJour']; ?>" />
+                                            <input type="hidden" name="marque" value="<?=  $location['Marque']; ?>" />
                                             <input class="btn btn-success" type="submit" name="submit" value="Valider" />
                                         </form>
                                     </div>
