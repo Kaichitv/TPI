@@ -51,8 +51,7 @@ try {
     // A qui on envoie le message
     $message->setTo(array($email));
 
-    // Un petit message html
-    // On peut bien évidemment avoir un message texte
+    // Le message
     $body = 
     '<html>' .
     ' <head></head>' .
@@ -60,7 +59,7 @@ try {
     '  <p>Bonjour, <br><br> Votre réservation du véhicule : '. $marque .' du : '. date_format(date_create($dateStart), "d.m.Y") .' jusqu\'au : '. date_format(date_create($dateEnd), "d.m.Y") .' a été approuvée au prix de : '. $price .'.- CHF <br><br>Merci d\'en prendre note.</p>' .
     ' </body>' .
     '</html>';
-    // On assigne le message et on dit de quel type. Dans notre exemple c'est du html
+    // On assigne le message et on dit de quel type
     $message->setBody($body,'text/html');
     // Maintenant il suffit d'envoyer le message
     $result = $mailer->send($message);

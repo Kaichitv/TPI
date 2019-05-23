@@ -68,7 +68,7 @@
             </div>
         </div><br>
 
-        <table class="table table-striped table-condensed">
+        <table class="table table-striped table-condensed table-responsive">
             <thead class="thead-dark">
                 <tr>
                     <th>Id</th>

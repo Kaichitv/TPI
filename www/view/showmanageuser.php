@@ -9,7 +9,7 @@
 
 ?>
 <!doctype html>
-<html>
+<html style="width: 700px">
 
 <head>
     <meta charset="utf-8">
@@ -26,7 +26,7 @@
 
 <body>
     <div class="container">
-        <header class="blog-header py-3">
+        <header class="blog-header py-3 col-12">
             <div class="row flex-nowrap justify-content-between align-items-center">
                 <div class="col-4 ">
                     <?php include "navigation.php"; ?>

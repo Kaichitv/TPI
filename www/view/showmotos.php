@@ -50,7 +50,7 @@
         <?php
             if(isset($_GET["message1"]))
             {
-                echo '<div class="alert alert-success" role="alert">Bienvenu ! Vous êtes connecté</div>';
+                echo '<div class="alert alert-success" role="alert">Bienvenue ! Vous êtes connecté</div>';
             }
             if(isset($_GET["message2"]))
             {
